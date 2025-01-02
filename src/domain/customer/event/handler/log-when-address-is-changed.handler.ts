@@ -3,7 +3,7 @@ import Customer from "../../entity/customer";
 import Address from "../../value-object/address";
 import CustomerAddressChangedEvent from "../customer-address-changed.event";
 
-export default class EnviaConsoleLog1Handler
+export default class LogWhenAddressIsChanged
   implements EventHandlerInterface<CustomerAddressChangedEvent>
 {
   handle(event: CustomerAddressChangedEvent): void {

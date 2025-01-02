@@ -1,9 +1,9 @@
 import SendEmailWhenProductIsCreatedHandler from "../../product/event/handler/send-email-when-product-is-created.handler";
 import ProductCreatedEvent from "../../product/event/product-created.event";
 import EventDispatcher from "./event-dispatcher";
-import EnviaConsoleLog1Handler from "../../customer/event/handler/envia-console-log1.handler";
-import EnviaConsoleLog2Handler from "../../customer/event/handler/envia-console-log2.handler";
-import EnviaConsoleLogHandler from "../../customer/event/handler/envia-console-log.handler";
+import SendLogCustomerCreatedToDataLake from "../../customer/event/handler/send-log-customer-created-to-datalake.handler";
+import LogCustomerCreated from "../../customer/event/handler/log-customer-created.handler";
+import LogWhenAddressIsChanged from "../../customer/event/handler/log-when-address-is-changed.handler";
 import CustomerCreatedEvent from "../../customer/event/customer-created.event";
 import CustomerAddressChangedEvent from "../../customer/event/customer-address-changed.event";
 
@@ -19,19 +19,19 @@ describe("Domain events tests", () => {
     expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"][0]).toMatchObject(eventHandler);
 
     // Customer events
-    const eventHandler1 = new EnviaConsoleLog1Handler();
+    const eventHandler1 = new SendLogCustomerCreatedToDataLake();
     eventDispatcher.register("CustomerCreatedEvent", eventHandler1);
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"]).toBeDefined();
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"].length).toBe(1);
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"][0]).toMatchObject(eventHandler1);
 
-    const eventHandler2 = new EnviaConsoleLog2Handler();
+    const eventHandler2 = new LogCustomerCreated();
     eventDispatcher.register("CustomerCreatedEvent", eventHandler2);
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"]).toBeDefined();
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"].length).toBe(2);
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"][1]).toMatchObject(eventHandler2);
 
-    const eventHandler3 = new EnviaConsoleLogHandler();
+    const eventHandler3 = new LogWhenAddressIsChanged();
     eventDispatcher.register("CustomerAddressChangedEvent", eventHandler3);
     expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"]).toBeDefined();
     expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"].length).toBe(1);
@@ -51,11 +51,11 @@ describe("Domain events tests", () => {
     expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"].length).toBe(0);
 
     // Customer Events
-    const eventHandler1 = new EnviaConsoleLog1Handler();
+    const eventHandler1 = new SendLogCustomerCreatedToDataLake();
     eventDispatcher.register("CustomerCreatedEvent", eventHandler1);
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"][0]).toMatchObject(eventHandler1);
 
-    const eventHandler2 = new EnviaConsoleLog2Handler();
+    const eventHandler2 = new LogCustomerCreated();
     eventDispatcher.register("CustomerCreatedEvent", eventHandler2);
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"][1]).toMatchObject(eventHandler2);
 
@@ -67,7 +67,7 @@ describe("Domain events tests", () => {
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"]).toBeDefined();
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"].length).toBe(0);
 
-    const eventHandler3 = new EnviaConsoleLogHandler();
+    const eventHandler3 = new LogWhenAddressIsChanged();
     eventDispatcher.register("CustomerAddressChangedEvent", eventHandler3);
     expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"][0]).toMatchObject(eventHandler3);
 
@@ -85,15 +85,15 @@ describe("Domain events tests", () => {
     expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"][0]).toMatchObject(eventHandler);
 
     // Customer Events
-    const eventHandler1 = new EnviaConsoleLog1Handler();
+    const eventHandler1 = new SendLogCustomerCreatedToDataLake();
     eventDispatcher.register("CustomerCreatedEvent", eventHandler1);
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"][0]).toMatchObject(eventHandler1);
 
-    const eventHandler2 = new EnviaConsoleLog2Handler();
+    const eventHandler2 = new LogCustomerCreated();
     eventDispatcher.register("CustomerCreatedEvent", eventHandler2);
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"][1]).toMatchObject(eventHandler2);
 
-    const eventHandler3 = new EnviaConsoleLogHandler();
+    const eventHandler3 = new LogWhenAddressIsChanged();
     eventDispatcher.register("CustomerAddressChangedEvent", eventHandler3);
     expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"][0]).toMatchObject(eventHandler3);
 
@@ -123,17 +123,17 @@ describe("Domain events tests", () => {
     expect(spyEventHandler).toHaveBeenCalled();
 
     // Customer Events
-    const eventHandler1 = new EnviaConsoleLog1Handler();
+    const eventHandler1 = new SendLogCustomerCreatedToDataLake();
     const spyEventHandler1 = jest.spyOn(eventHandler1, "handle");
     eventDispatcher.register("CustomerCreatedEvent", eventHandler1);
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"][0]).toMatchObject(eventHandler1);
 
-    const eventHandler2 = new EnviaConsoleLog2Handler();
+    const eventHandler2 = new LogCustomerCreated();
     const spyEventHandler2 = jest.spyOn(eventHandler2, "handle");
     eventDispatcher.register("CustomerCreatedEvent", eventHandler2);
     expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"][1]).toMatchObject(eventHandler2);
 
-    const eventHandler3 = new EnviaConsoleLogHandler();
+    const eventHandler3 = new LogWhenAddressIsChanged();
     const spyEventHandler3 = jest.spyOn(eventHandler3, "handle");
     eventDispatcher.register("CustomerAddressChangedEvent", eventHandler3);
     expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"][0]).toMatchObject(eventHandler3);
